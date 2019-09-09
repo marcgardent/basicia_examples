@@ -1,0 +1,7 @@
+build*
+.vscode
+*.blend1
+khafile.js
+__pycache__
+Sources/*/node
+.suo

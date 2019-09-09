@@ -1,0 +1,6 @@
+[submodule "Libraries/vdebug"]
+	path = Libraries/vdebug
+	url = https://github.com/MarketGarden/armory3D-VDebug.git
+[submodule "Libraries/basicia"]
+	path = Libraries/basicia
+	url = https://github.com/MarketGarden/basicia.git
