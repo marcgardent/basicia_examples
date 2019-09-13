@@ -32,8 +32,16 @@ class MyEnvState implements IState {
 	public final info:Map<String, String> = new Map<String,String>();
 	
 	public function new(object:Object, rb:RigidBody, progressMade:Float, fairplay: Bool) {
-		this.done = !fairplay || progressMade > 1000;
-		reward = Math.min(rb.getLinearVelocity().length() / VELOCITY_MAX, 1);
+		//this.done = !fairplay || progressMade > 1000;
+		var reward_velocity = Math.min(rb.getLinearVelocity().length() / VELOCITY_MAX, 1);
+		var reward_progress = progressMade/1000;
+		var loc =object.transform.world.getLoc();
+		var dist = loc.length();
+		var reward_center =dist>1 ? 1/dist : 1;
+		reward = fairplay ? reward_center : 0;
+		done = !fairplay || reward==1;
+		
+		/*
 		var origin = object.transform.world.getLoc();
 		for (v in raycasts) {
 			var dest = v.clone().applymat4(object.transform.world);
@@ -46,14 +54,22 @@ class MyEnvState implements IState {
 				observation.push(1);
 			}
 		}
+		*/
+
+		observation.push(loc.x/100);
+		observation.push(loc.y/100);
+
+		#if arm_debug	
+		VDebug.addPoint(loc,Color.Green,10);
+		#end
 	}
 
 	#if arm_debug
 	public function debug() {
 		
-		VDebug.addVariable("reward", Math.fround(reward * 100) + "%");
+		VDebug.addVariable("reward", Math.fround(reward * 100) + "u");
 		for (r in this.observation) {
-			VDebug.addVariable("rays", Math.fround(r * 100) + "%");
+			VDebug.addVariable("rays", Math.fround(r * 100) + "u");
 		}
 		
 	}
