@@ -1,5 +1,6 @@
 package runner;
 
+import kha.Color;
 import iron.object.Object;
 import iron.math.Vec4;
 import armory.trait.physics.RigidBody;
@@ -15,6 +16,8 @@ import Std;
 
 class MyEnvTrait extends basicia.iron.WebSocketEnvTrait {
 	private var total:Float = 0;
+	private var win:Int= 0;
+	private var loose:Int= 0;
 	private var rb:RigidBody;
 	private var population = new Array<Object>();
 	private var target:Object;
@@ -32,10 +35,21 @@ class MyEnvTrait extends basicia.iron.WebSocketEnvTrait {
 
 		var state = new MyEnvState(this.target, rb, total, fairplay);
 
+		if(state.done){
+			if(fairplay){ this.win++; }
+			else{ this.loose++;}
+		}
+
+
 		#if arm_debug
-		VDebug.addVariable("progress made", Math.fround(total / 1000 * 100) + "%");
+		//VDebug.addVariable("progress made", Math.fround(total / 1000 * 100) + "%");
+		VDebug.addVariable("Ok", this.win + "#");
+		VDebug.addVariable("KO", this.loose + "#");
 		VDebug.addMessage("----------------------------");
 		state.debug();
+		var color = Color.fromFloats(0,state.reward,0);
+		VDebug.addDrag(this.target.transform.world.getLoc(),color, 3, "target", 200);
+		VDebug.addPoint(new Vec4(0,0,0),Color.White,6);
 		#end
 
 		return state;
@@ -65,6 +79,7 @@ class MyEnvTrait extends basicia.iron.WebSocketEnvTrait {
 			r.syncTransform();
 		}
 
+		
 		return new MyEnvState(this.target, rb, total, true);
 	}
 

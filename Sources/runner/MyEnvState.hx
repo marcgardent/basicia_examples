@@ -69,7 +69,7 @@ class MyEnvState implements IState {
 		
 		VDebug.addVariable("reward", Math.fround(reward * 100) + "u");
 		for (r in this.observation) {
-			VDebug.addVariable("rays", Math.fround(r * 100) + "u");
+			VDebug.addVariable("obs", Math.fround(r * 100) + "u");
 		}
 		
 	}
