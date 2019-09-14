@@ -4,3 +4,6 @@
 [submodule "Libraries/basicia"]
 	path = Libraries/basicia
 	url = https://github.com/MarketGarden/basicia.git
+[submodule "Libraries/kha_tensorflow"]
+	path = Libraries/kha_tensorflow
+	url = https://github.com/armory3d/kha_tensorflow
