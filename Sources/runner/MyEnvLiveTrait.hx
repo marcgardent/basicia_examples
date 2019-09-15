@@ -6,24 +6,27 @@ import tf.TF;
 class MyEnvLiveTrait extends iron.Trait {
 	public function new() {
 		super();
-		trace("MyEnvLiveTrait::new");
-		notifyOnInit(function() {
-			trace("MyEnvLiveTrait::OnInit");
-			TFHelper.init(function() {
-				trace("TFHelper::OnInit");
-				TF.loadLayersModel("runner_actor.json").then( function(model:Dynamic){
-					trace("loadLayersModel::then");
-					var t=  TF.tensor([[[1,5]]]);
-					var result = model.predict(t).arraySync();
-					var result = model.predict(t).arraySync();
-				});
-			});
-		});
+		notifyOnInit(this.onInit);
+	}
 
-		// notifyOnUpdate(function() {
-		// });
+	public function onInit() {
+		TFHelper.init(this.onTensorFlowLoaded);
+	}
 
-		// notifyOnRemove(function() {
-		// });
+	public function onTensorFlowLoaded() {
+		TF.loadLayersModel("runner_actor.json").then(this.onModelLoaded);
+	}
+
+	public function onModelLoaded(model:Dynamic) {
+		trace("Actor model loaded!");
+
+
+		var pop = MyEnvTrait.getPopulation();
+		MyEnvTrait.shufflePopulation(pop);
+		for (o in pop) {
+			o.addTrait(new TensorflowMoveTrait(model));
+		}
+
+		
 	}
 }

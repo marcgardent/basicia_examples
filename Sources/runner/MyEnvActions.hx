@@ -24,7 +24,7 @@ class MyEnvActions  {
 		var length = impluse.length();
 		var ok = length <= MAX_IMPLUSE;
 		#if arm_debug
-		VDebug.addVariable("impluse", length + "f");
+		//VDebug.addVariable("impluse", length + "f");
 		#end
 
 		if (ok) {
