@@ -19,14 +19,11 @@ class MyEnvLiveTrait extends iron.Trait {
 
 	public function onModelLoaded(model:Dynamic) {
 		trace("Actor model loaded!");
-
-
+		
 		var pop = MyEnvTrait.getPopulation();
 		MyEnvTrait.shufflePopulation(pop);
 		for (o in pop) {
 			o.addTrait(new TensorflowMoveTrait(model));
 		}
-
-		
 	}
 }

@@ -60,16 +60,16 @@ class MyEnvState implements IState {
 		observation.push(loc.y/100);
 
 		#if arm_debug	
-		VDebug.addPoint(loc,Color.Green,10);
+		VDebug.point(loc,Color.Green,10);
 		#end
 	}
 
 	#if arm_debug
 	public function debug() {
 		
-		VDebug.addVariable("reward", Math.fround(reward * 100) + "u");
+		VDebug.variable("reward", Math.fround(reward * 100) + "u");
 		for (r in this.observation) {
-			VDebug.addVariable("obs", Math.fround(r * 100) + "u");
+			VDebug.variable("obs", Math.fround(r * 100) + "u");
 		}
 		
 	}
@@ -80,11 +80,11 @@ class MyEnvState implements IState {
 		if (ret != null) {
 			ret = new Hit(ret.rb, ret.pos.clone(), ret.normal.clone()); // TODO PR, Fix! avoid clone
 			#if arm_debug
-			VDebug.addLine(source, ret.pos, Color.Red, 1);
+			VDebug.line(source, ret.pos, Color.Red, 1);
 			#end
 		} else {
 			#if arm_debug
-			VDebug.addLine(source, destination, Color.Green, 1);
+			VDebug.line(source, destination, Color.Green, 1);
 			#end
 		}
 		return ret;

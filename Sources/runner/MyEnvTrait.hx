@@ -45,13 +45,13 @@ class MyEnvTrait extends basicia.iron.WebSocketEnvTrait {
 
 		#if arm_debug
 		// VDebug.addVariable("progress made", Math.fround(total / 1000 * 100) + "%");
-		VDebug.addVariable("Ok", this.win + "#");
-		VDebug.addVariable("KO", this.loose + "#");
-		VDebug.addMessage("----------------------------");
+		VDebug.variable("Ok", this.win + "#");
+		VDebug.variable("KO", this.loose + "#");
+		VDebug.message("----------------------------");
 		state.debug();
 		var color = Color.fromFloats(0, state.reward, 0);
-		VDebug.addDrag(this.target.transform.world.getLoc(), color, 3, "target", 200);
-		VDebug.addPoint(new Vec4(0, 0, 0), Color.White, 6);
+		VDebug.trail(this.target.transform.world.getLoc(), color, 3, "target", 200);
+		VDebug.point(new Vec4(0, 0, 0), Color.White, 6);
 		#end
 
 		return state;
