@@ -4,6 +4,9 @@ import armory.trait.physics.RigidBody;
 import iron.object.Object;
 import tf.TFHelper;
 import tf.TF;
+#if arm_debug
+import vdebug.VDebug;
+#end
 
 /**
  * MyEnvLiveTrait Alternative 
@@ -31,10 +34,7 @@ class MyEnvLiveBatchTrait extends iron.Trait {
 		this.population = MyEnvTrait.getPopulation();
 
 		MyEnvTrait.shufflePopulation(population);
-		for (o in population) {
-			o.addTrait(new TensorflowMoveTrait(model));
-		}
-
+		
 		notifyOnUpdate(this.onUpdate);
 	}
 
@@ -47,7 +47,14 @@ class MyEnvLiveBatchTrait extends iron.Trait {
 		}
 
 		var obs = TF.tensor(obs);
+				#if arm_debug
+		VDebug.time("IA");
+		#end
 		var results = this.actor.predict(obs).arraySync();
+		#if arm_debug
+		VDebug.cost("IA");
+		#end
+
 		var i = 0;
 		for(o in population){
 			var rb = o.getTrait(RigidBody);

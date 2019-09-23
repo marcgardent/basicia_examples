@@ -10,6 +10,7 @@ class MyEnvLiveTrait extends iron.Trait {
 	}
 
 	public function onInit() {
+
 		TFHelper.init(this.onTensorFlowLoaded);
 	}
 
