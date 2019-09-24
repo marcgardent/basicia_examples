@@ -1,4 +1,4 @@
-package runner;
+package runner.goto;
 
 import kha.Color;
 import iron.object.Object;
@@ -7,14 +7,14 @@ import armory.trait.physics.RigidBody;
 import basicia.definitions.IState;
 import iron.Scene;
 import StringTools;
-import runner.MyEnvActions;
-import runner.MyEnvState;
+import runner.RunnerHelper;
+
 #if arm_debug
 import vdebug.VDebug;
 #end
 import Std;
 
-class MyEnvTrait extends basicia.iron.WebSocketEnvTrait {
+class TrainSceneTrait extends basicia.iron.WebSocketEnvTrait {
 	private var total:Float = 0;
 	private var win:Int = 0;
 	private var loose:Int = 0;
@@ -33,7 +33,7 @@ class MyEnvTrait extends basicia.iron.WebSocketEnvTrait {
 		var velocity = rb.getLinearVelocity().length();
 		total += velocity;
 
-		var state = new MyEnvState(this.target, rb, total, fairplay);
+		var state = new MyEnvState(this.target, rb, fairplay);
 
 		if (state.done) {
 			if (fairplay) {
@@ -59,12 +59,12 @@ class MyEnvTrait extends basicia.iron.WebSocketEnvTrait {
 
 	public override function reset():IState {
 		total = 0;
-		shufflePopulation(this.population);
-		return new MyEnvState(this.target, rb, total, true);
+		RunnerHelper.shufflePopulation(this.population);
+		return new MyEnvState(this.target, rb,  true);
 	}
 
 	public override function init():Void {
-		this.population = getPopulation();
+		this.population = RunnerHelper.getPopulation();
 		for (o in this.population) {
 			o.addTrait(new RandomMoveTrait());
 		}
@@ -74,42 +74,5 @@ class MyEnvTrait extends basicia.iron.WebSocketEnvTrait {
 		this.population.push(this.target);
 
 		this.rb = this.target.getTrait(RigidBody);
-	}
-
-	public static function shufflePopulation(population: Array<Object>){
-		
-		var positions = new Array<Vec4>();
-		for (x in 0...10) {
-			for (y in 0...10) {
-				positions.push(new Vec4(x * 2 - 10, y * 2 - 10, 1));
-			}
-		}
-
-		for (o in population) {
-			var r = o.getTrait(RigidBody);
-			var posIndex = Math.floor(Math.random() * positions.length);
-			var pos = positions.splice(posIndex, 1)[0];
-
-			r.body.setAngularVelocity(new bullet.Bt.Vector3(0, 0, 0));
-			r.body.setLinearVelocity(new bullet.Bt.Vector3(0, 0, 0));
-			o.transform.loc = pos;
-			o.transform.setRotation(0, 0, 0);
-			o.transform.buildMatrix();
-			r.syncTransform();
-		}
-	}
-
-	public static function getPopulation():Array<Object> {
-		var population = new Array<Object>();
-
-		for (i in 1...25) {
-			trace("Cube", i);
-
-			var num = StringTools.lpad(Std.string(i), "0", 3);
-			var obj = Scene.active.getChild("Cube." + num);
-			population.push(obj);
-		}
-
-		return population;
 	}
 }

@@ -1,4 +1,4 @@
-package runner;
+package runner.goto;
 
 import kha.FastFloat;
 import iron.math.Vec4;

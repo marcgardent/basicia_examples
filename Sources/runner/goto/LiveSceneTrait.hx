@@ -1,19 +1,19 @@
-package runner;
+package runner.goto;
 
 import armory.trait.physics.RigidBody;
 import iron.object.Object;
 import tf.TFHelper;
 import tf.TF;
+import runner.goto.MyEnvActions;
+
+import runner.RunnerHelper;
 #if arm_debug
 import vdebug.VDebug;
 #end
 
-/**
- * MyEnvLiveTrait Alternative 
- */
-class MyEnvLiveBatchTrait extends iron.Trait {
-	var population : Array<Object>;
-	var actor :Dynamic;
+class LiveSceneTrait extends iron.Trait {
+	var population:Array<Object>;
+	var actor:Dynamic;
 
 	public function new() {
 		super();
@@ -25,29 +25,34 @@ class MyEnvLiveBatchTrait extends iron.Trait {
 	}
 
 	public function onTensorFlowLoaded() {
-		TF.loadLayersModel("runner_actor.json").then(this.onModelLoaded);
+		TF.loadLayersModel("runner_goto_actor.json").then(this.onModelLoaded);
 	}
 
 	public function onModelLoaded(model:Dynamic) {
 		trace("Actor model loaded!");
 		this.actor = model;
-		this.population = MyEnvTrait.getPopulation();
+		this.population = RunnerHelper.getPopulation();
+		/*
+		for (o in this.population) {
+			//o.addTrait(new AutoRotateTrait());
+		}
+		*/
+		RunnerHelper.shufflePopulation(population);
 
-		MyEnvTrait.shufflePopulation(population);
-		
 		notifyOnUpdate(this.onUpdate);
 	}
 
-	public function onUpdate(){
+	public function onUpdate() {
 		var obs = new Array();
+
 		for (o in population) {
 			var loc = o.transform.world.getLoc();
-			var a = [[loc.x/100, loc.y/100]];
+			var a = [[loc.x / 100, loc.y / 100]];
 			obs.push(a);
 		}
 
 		var obs = TF.tensor(obs);
-				#if arm_debug
+		#if arm_debug
 		VDebug.time("IA");
 		#end
 		var results = this.actor.predict(obs).arraySync();
@@ -56,13 +61,11 @@ class MyEnvLiveBatchTrait extends iron.Trait {
 		#end
 
 		var i = 0;
-		for(o in population){
+		for (o in population) {
 			var rb = o.getTrait(RigidBody);
 			var action = new MyEnvActions(rb);
 			action.Apply(results[i]);
 			i++;
 		}
 	}
-
- 
 }

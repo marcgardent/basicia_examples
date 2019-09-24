@@ -8,12 +8,12 @@
 		"model_config": {
 			"class_name": "Sequential",
 			"config": {
-				"name": "sequential_1",
+				"name": "sequential_2",
 				"layers": [
 					{
 						"class_name": "Flatten",
 						"config": {
-							"name": "flatten_1",
+							"name": "flatten_3",
 							"trainable": true,
 							"batch_input_shape": [
 								null,
@@ -27,7 +27,7 @@
 					{
 						"class_name": "Dense",
 						"config": {
-							"name": "dense_1",
+							"name": "dense_9",
 							"trainable": true,
 							"units": 16,
 							"activation": "linear",
@@ -55,7 +55,7 @@
 					{
 						"class_name": "Activation",
 						"config": {
-							"name": "activation_1",
+							"name": "activation_9",
 							"trainable": true,
 							"activation": "relu"
 						}
@@ -63,7 +63,7 @@
 					{
 						"class_name": "Dense",
 						"config": {
-							"name": "dense_2",
+							"name": "dense_10",
 							"trainable": true,
 							"units": 16,
 							"activation": "linear",
@@ -91,7 +91,7 @@
 					{
 						"class_name": "Activation",
 						"config": {
-							"name": "activation_2",
+							"name": "activation_10",
 							"trainable": true,
 							"activation": "relu"
 						}
@@ -99,7 +99,7 @@
 					{
 						"class_name": "Dense",
 						"config": {
-							"name": "dense_3",
+							"name": "dense_11",
 							"trainable": true,
 							"units": 16,
 							"activation": "linear",
@@ -127,7 +127,7 @@
 					{
 						"class_name": "Activation",
 						"config": {
-							"name": "activation_3",
+							"name": "activation_11",
 							"trainable": true,
 							"activation": "relu"
 						}
@@ -135,7 +135,7 @@
 					{
 						"class_name": "Dense",
 						"config": {
-							"name": "dense_4",
+							"name": "dense_12",
 							"trainable": true,
 							"units": 2,
 							"activation": "linear",
@@ -163,7 +163,7 @@
 					{
 						"class_name": "Activation",
 						"config": {
-							"name": "activation_4",
+							"name": "activation_12",
 							"trainable": true,
 							"activation": "linear"
 						}
@@ -190,11 +190,56 @@
 	"weightsManifest": [
 		{
 			"paths": [
-				"build_runner/debug/html5/runner_actor.bin"
+				"Projets/basicia_examples/build/debug-html5/runner_goto_actor.json"
 			],
 			"weights": [
 				{
-					"name": "dense_1/kernel",
+					"name": "dense_10/kernel",
+					"shape": [
+						16,
+						16
+					],
+					"dtype": "float32"
+				},
+				{
+					"name": "dense_10/bias",
+					"shape": [
+						16
+					],
+					"dtype": "float32"
+				},
+				{
+					"name": "dense_11/kernel",
+					"shape": [
+						16,
+						16
+					],
+					"dtype": "float32"
+				},
+				{
+					"name": "dense_11/bias",
+					"shape": [
+						16
+					],
+					"dtype": "float32"
+				},
+				{
+					"name": "dense_12/kernel",
+					"shape": [
+						16,
+						2
+					],
+					"dtype": "float32"
+				},
+				{
+					"name": "dense_12/bias",
+					"shape": [
+						2
+					],
+					"dtype": "float32"
+				},
+				{
+					"name": "dense_9/kernel",
 					"shape": [
 						2,
 						16
@@ -202,54 +247,9 @@
 					"dtype": "float32"
 				},
 				{
-					"name": "dense_1/bias",
+					"name": "dense_9/bias",
 					"shape": [
 						16
-					],
-					"dtype": "float32"
-				},
-				{
-					"name": "dense_2/kernel",
-					"shape": [
-						16,
-						16
-					],
-					"dtype": "float32"
-				},
-				{
-					"name": "dense_2/bias",
-					"shape": [
-						16
-					],
-					"dtype": "float32"
-				},
-				{
-					"name": "dense_3/kernel",
-					"shape": [
-						16,
-						16
-					],
-					"dtype": "float32"
-				},
-				{
-					"name": "dense_3/bias",
-					"shape": [
-						16
-					],
-					"dtype": "float32"
-				},
-				{
-					"name": "dense_4/kernel",
-					"shape": [
-						16,
-						2
-					],
-					"dtype": "float32"
-				},
-				{
-					"name": "dense_4/bias",
-					"shape": [
-						2
 					],
 					"dtype": "float32"
 				}
