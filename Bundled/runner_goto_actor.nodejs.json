@@ -190,7 +190,7 @@
 	"weightsManifest": [
 		{
 			"paths": [
-				"Projets/basicia_examples/build/debug-html5/runner_goto_actor.json"
+				"Projets/basicia_examples/build/debug-html5/runner_goto_actor.bin"
 			],
 			"weights": [
 				{
