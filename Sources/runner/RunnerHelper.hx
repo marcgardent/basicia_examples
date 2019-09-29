@@ -6,7 +6,6 @@ import armory.trait.physics.RigidBody;
 import iron.Scene;
 import StringTools;
 
-
 class RunnerHelper {
 	public static function shufflePopulation(population:Array<Object>) {
 		var positions = new Array<Vec4>();
